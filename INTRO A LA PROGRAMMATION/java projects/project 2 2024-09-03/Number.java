@@ -14,10 +14,14 @@ class Main {
         //second number
         System.out.println("ecrivez un deuxieme numero:");
         String input2 = scanner.nextLine();  // Read second input
+        
+        System.out.println("ecrivez un troisieme numero:");
+        String input3 = scanner.nextLine();  // Read second input
 
         // convert numbers into Doubles
         number1 = Double.parseDouble(input1); //returns a new double value that is initialized to the value corresponding to defined String
         number2 = Double.parseDouble(input2);
+        number2 = Integer.parseInt(input3); // same bs but with an integer
 
         // Compare the two numbers and print the result
         if (number1 == number2) {
