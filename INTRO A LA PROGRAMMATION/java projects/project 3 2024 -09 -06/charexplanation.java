@@ -25,7 +25,9 @@ public class charexplanation {
     int[]table = new int[5]; //this is an int table, i can not write letters or words, it is only and exclusively for numbers
     table[2] = 10;
     table[0] = 1;
-
+    for (int w=1; w>=0; w++){
+        System.out.println(w);
+    }
 
 }
 }
