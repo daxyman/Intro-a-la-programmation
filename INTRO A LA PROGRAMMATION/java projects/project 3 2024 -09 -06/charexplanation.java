@@ -20,9 +20,12 @@ public class charexplanation {
         
         //for loop that will go through the whole table
         for (int i=0; i<letter2.length; i++) {
-            System.out.println("the position "+letter2+" holds the value: "+letter2[2]); //play w this man
+            System.out.println("the position "+letter2[0]+" holds the value: "+letter2[2]); //play w this man
     }
+    int[]table = new int[5]; //this is an int table, i can not write letters or words, it is only and exclusively for numbers
+    table[2] = 10;
+    table[0] = 1;
 
-    
+
 }
 }
