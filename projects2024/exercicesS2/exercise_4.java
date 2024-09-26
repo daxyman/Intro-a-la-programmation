@@ -1,8 +1,9 @@
+package exercicesS2;
+
 import java.util.Scanner;
 
-class main {
+class exercise_4 {
     public static void main(String[] args) {
-        int whatever = 0;  //establishing value "whatever" as an integer 0
         double number1; // establishing value "number 1" as a double value, meaning it can hold decimals
         double number2;
         Scanner scanner = new Scanner(System.in);
@@ -21,7 +22,7 @@ class main {
         // convert numbers into Doubles
         number1 = Double.parseDouble(input1); //returns a new double value that is initialized to the value corresponding to defined String
         number2 = Double.parseDouble(input2);
-        number2 = Integer.parseInt(input3); // same bs but with an integer
+        int number3 = Integer.parseInt(input3); // same bs but with an integer
 
         // Compare the two numbers and print the result
         if (number1 == number2) {
@@ -29,8 +30,10 @@ class main {
         } else if (number1 < number2) {
             System.out.println(number2 + " est plus grand que " + number1);
         } else {
-            System.out.println(number1 + " est plsu grand que " + number2);
+            System.out.println(number1 + " est plus grand que " + number2);   
         }
+        System.out.println("he's here too i guess " + number3); //idk why it will not print this
+        
 
         // Close the Scanner object to prevent resource leaks
         scanner.close();

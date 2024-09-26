@@ -20,4 +20,3 @@ B pour un score entre 80 et 89
 C pour un score entre 70 et 79
 D pour un score entre 60 et 69
 F pour un score < 60
-
