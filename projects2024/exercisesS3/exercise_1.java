@@ -22,14 +22,15 @@ public class exercise_1 {
           int oddCount=0;
         for(int i = 0; i < table1.length;i++){
             if(table1[i]%2==0){
-                System.out.println("even : " + table1[i]); 
+//                System.out.println("even : " + table1[i]); 
                 evenCount++;
-            } else{
+        } else{
                 System.out.println("odd : " + table1[i]); 
                 oddCount++;
             }
 
         }
+
         System.out.println("there are "+evenCount+" even numbers");
         System.out.println("there are "+oddCount+" odd numbers");
         

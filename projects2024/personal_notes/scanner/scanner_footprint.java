@@ -1,4 +1,4 @@
-package personal_notes;
+package personal_notes.scanner;
 
 import java.util.Scanner; //case sensitive (VERY IMPORTANT)
 
