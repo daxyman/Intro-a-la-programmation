@@ -10,10 +10,10 @@ public class exercise_4 {
         String input1 = scanner.nextLine();
         int n = Integer.parseInt(input1);
 
-    int[][] tab1 = new int[n+1][n+1];
-    for (int i = 1; i < tab1.length ; i++) {
-        for (int j = 1; j < tab1[i].length; j++) {
-        System.out.print(j + " ");
+    int[][] tab1 = new int[n][n];
+    for (int i = 0; i < n ; i++) {
+        for (int j = 0; j < n; j++) {
+        System.out.print(tab1[i][j] + " ");
         }
         System.out.println();
         }

@@ -7,13 +7,20 @@ public class aideReussite {
         Scanner scanner = new Scanner(System.in);
         int[] notes = new int[10];
 
-        for(int i= 1; 1<10; i++){
-            System.out.print("entrez la note: " + i);
+        // Loop to collect notes from user input
+        for(int i = 1; i < 10; i++) {
+            System.out.print("entrez la note " + i + ": ");
             int n = scanner.nextInt();
-            notes[i-1] = n;
+            notes[i-1] = n;  // Store the input in the correct index
         }
-        System.out.print("notes");
+
+        // Print the word "Notes:" and display the array content
+        System.out.print("Notes: ");
+        for(int i = 0; i < notes.length; i++) {
+            System.out.println("Note " + (i + 1) + ": " + notes[i]);
+        }
+
         scanner.close();
-    }   
+    }
 }
 
