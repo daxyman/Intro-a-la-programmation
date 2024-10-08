@@ -1,4 +1,4 @@
-package exercisesS3;
+package exercisesS3pt2;
 
 import java.util.Scanner;
 
