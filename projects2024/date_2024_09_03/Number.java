@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class main {
+class Number {
     public static void main(String[] args) {
         int whatever = 0;  //establishing value "whatever" as an integer 0
         double number1; // establishing value "number 1" as a double value, meaning it can hold decimals

@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class tp1_zoo {
     public static void main(String[] args){
         showmenu.showMenu();
+        System.out.println("--------------------------------------------------------------------------------------");
+        ajouterNouveauAnimal.addAnimal();
     }
 }
     

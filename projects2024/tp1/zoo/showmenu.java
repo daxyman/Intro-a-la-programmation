@@ -1,8 +1,12 @@
 package projects2024.tp1.zoo;
 
 public class showmenu {
-    public static void showMenu(){ //dude why using a capital M in showMenu stops it from buging?? // mf it's oct 22th, like a week after i typed this and still got NO idea//
+    public static void showMenu(){ //dude why using a capital M in showMenu stops it from buging?? // mf it's oct 22th, like a week after i typed this and still got NO idea// oct 25, it's because it's a method, it can't have the same name as a syntax bc java is case sensitive
         System.out.println("");
+        System.out.println("<-------------------------------------------------------->");
+        System.out.println("Bienvenue au zoo!");
+        System.out.println("Que desirez vous faire?");
+        System.out.println("<-------------------------------------------------------->");
         System.out.println("");
         System.out.println("1. Ajouter un nouvel animal");
         System.out.println("2. Afficher la liste des animaux et leurs informations");
