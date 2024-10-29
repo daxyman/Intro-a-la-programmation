@@ -1,4 +1,4 @@
-package projects2024.personal_notes.java_methods;
+package personal_notes.java_methods;
 
 public class full_example {
     // Complete Example

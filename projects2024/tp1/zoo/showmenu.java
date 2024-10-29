@@ -1,4 +1,4 @@
-package projects2024.tp1.zoo;
+package tp1.zoo;
 
 public class showmenu {
     public static void showMenu(){ //dude why using a capital M in showMenu stops it from buging?? // mf it's oct 22th, like a week after i typed this and still got NO idea// oct 25, it's because it's a method, it can't have the same name as a syntax bc java is case sensitive
@@ -20,5 +20,6 @@ public class showmenu {
         System.out.println("0. Quitter le programme");
         System.out.println("");
         System.out.println("");
+        System.out.println("<-------------------------------------------------------->");
     }    
 }
