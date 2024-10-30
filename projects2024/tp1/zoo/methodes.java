@@ -2,15 +2,6 @@ package tp1.zoo;
 import java.util.Scanner;
 public class methodes{
     
-    
-    
-    
-    
-    public static void modifierPoidsAnimal(){
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("C'est quoi le nom de l'animal que vous voulez editer leur poids?");
-        String NomAnimal = scanner.nextLine();
-    }
     public static void ajouterVisiteursParAnimal(){
     }
     public static void calculerTotalVisiteursZoo(){  
