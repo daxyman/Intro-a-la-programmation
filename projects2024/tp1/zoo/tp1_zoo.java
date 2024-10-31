@@ -201,29 +201,29 @@ public static void modifierPoidsAnimal(Scanner scanner) {
     }
 }
 public static void ajouterVisiteursParAnimal(Scanner scanner) {
-    System.out.println("Enter the name of the animal to add visitors:");
+    System.out.println("Entrez le nom de l'animal pour ajouter des visiteurs:");
     String nomAnimal = scanner.nextLine();
-    boolean visit = false; //j'ai 0 idee comment faire pour ne pas valider visiteurs negatifs, mais il est deja trop tard honnetment
+    boolean found = false;
     for (int i = 0; i < animalCount; i++) {
-        if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // search for animal by name
-            System.out.println("How many visitors to add for " + nomAnimal + "?");
-            int newVisitors = Integer.parseInt(scanner.nextLine());
-            visiteurs[i] += newVisitors; // actualise total visiteurs for that animal
-            System.out.println("Updated visitor count for " + nomAnimal + ": " + visiteurs[i]);
-            visit = true;
+        if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // search by name
+            System.out.println("Combien de visiteurs voulez-vous ajouter pour " + nomAnimal + "?");
+            int newVisiteurs = Integer.parseInt(scanner.nextLine());
+            visiteurs[i] += newVisiteurs; // ++new Visiteurs to the current total
+            System.out.println("Nombre total de visiteurs pour " + nomAnimal + ": " + visiteurs[i]);
+            found = true;
             break;
         }
     }
-    if (!visit) {
-        System.out.println("No animal found with that name.");
+    if (!found) {
+        System.out.println("Aucun animal trouvé avec ce nom.");
     }
 }
 public static void calculerTotalVisiteursZoo() {
-    int totalVisitors = 0; // si j'etablise un total et je le change apres il sera plus facile que l'inverse tbh
+    int totalVisiteurs = 0; // si j'etablise un total et je le change apres il sera plus facile que l'inverse tbh
     for (int i =0; i < animalCount;i++) {
-        totalVisitors += visiteurs[i]; // add each animal’s visitors to the total
+        totalVisiteurs += visiteurs[i]; // add each animal’s Visiteurs to the total
     }
-    System.out.println("Total visitors for all animals in the zoo: " + totalVisitors);
+    System.out.println("Total Visiteurs for all animals in the zoo: " + totalVisiteurs);
 }
 //NOT GONNA LIE apres certain point c'est just la meme affaire, fait une table, for loop pour le naviger, n'importe quel variable, change la variable a ce que je cherche
 public static void calculerPoidsMoyenAnimaux() {
@@ -277,7 +277,7 @@ public static void trouverAnimauxExtremes() {
 public static void afficherResumeCompletZoo() {
     System.out.println("<---------------- Zoo Summary ---------------->");
 
-    System.out.println("Total Visitors:");
+    System.out.println("Total Visiteurs:");
     calculerTotalVisiteursZoo();
 
     System.out.println("Animal List:");
