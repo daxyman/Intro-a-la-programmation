@@ -4,6 +4,7 @@ public class tp1_zoo {
 
 private static String[][] animauxdata = new String[2][3]; // 2D table to store animal data
 private static int animalCount = 0;
+private static int[] visiteurs = new int[animauxdata.length];
 
 public static void main(String[] args) {
 
@@ -23,25 +24,25 @@ public static void main(String[] args) {
                     afficherListeAnimaux();
                     break;
                 case 3:
-                    rechercherAnimal();
+                    rechercherAnimal(scanner);
                     break;
                 case 4:
-                    modifierPoidsAnimal();
+                    modifierPoidsAnimal(scanner);
                     break;
                 case 5:
-                    methodes.ajouterVisiteursParAnimal();
+                    ajouterVisiteursParAnimal(scanner);
                     break;
                 case 6:
-                    methodes.calculerTotalVisiteursZoo();
+                    calculerTotalVisiteursZoo();
                     break;
                 case 7:
-                    methodes.calculerPoidsMoyenAnimauxZoo();
+                    calculerPoidsMoyenAnimaux();
                     break;
                 case 8:
-                    methodes.trouverAnimauxExtremes();
+                    trouverAnimauxExtremes();
                     break;
                 case 9:
-                    methodes.afficherResumeCompletZoo();
+                    afficherResumeCompletZoo();
                     break;
                 case 0:
                     runCode = quitterProgramme();
@@ -103,13 +104,11 @@ public static void main(String[] args) {
         }
     }
 
-    public static void rechercherAnimal() {
-    Scanner scanner = new Scanner(System.in);
+    public static void rechercherAnimal(Scanner scanner) {
     System.out.println("Choisissez un des critères pour faire une recherche:");
     System.out.println("1. Nom");
     System.out.println("2. Espèce");
     System.out.println("3. Poids");
-
     String input2 = scanner.nextLine();
     int option1 = Integer.parseInt(input2);
     boolean found = false;
@@ -181,23 +180,125 @@ private static void afficherSingleAnimal(int index) {//shows details for A SINGL
     System.out.println();
 }
 
-    public static void modifierPoidsAnimal(){
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("C'est quoi le nom de l'animal que vous voulez editer leur poids?");
-        String NomAnimal = scanner.nextLine();
+public static void modifierPoidsAnimal(Scanner scanner) {
+    System.out.println("Enter the name of the animal u wanna edit the weight of:");
+    String nomAnimal = scanner.nextLine();
+    boolean found = false;
+    for (int i = 0; i < animalCount; i++) {
+        if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // compare name
+            System.out.println("Enter the new weight for " + nomAnimal + ":");
+            double newPoids = Double.parseDouble(scanner.nextLine());
+            animauxdata[i][2] = String.valueOf(newPoids); // update weight as string
+            System.out.println("Weight updated successfully for " + nomAnimal);
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        System.out.println("No animal found with that name.");
+    }
+}
+public static void ajouterVisiteursParAnimal(Scanner scanner) {
+    System.out.println("Enter the name of the animal to add visitors:");
+    String nomAnimal = scanner.nextLine();
+    boolean visit = false; //j'ai 0 idee comment faire pour ne pas valider visiteurs negatifs, mais il est deja trop tard honnetment
+    for (int i = 0; i < animalCount; i++) {
+        if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // search for animal by name
+            System.out.println("How many visitors to add for " + nomAnimal + "?");
+            int newVisitors = Integer.parseInt(scanner.nextLine());
+            visiteurs[i] += newVisitors; // actualise total visiteurs for that animal
+            System.out.println("Updated visitor count for " + nomAnimal + ": " + visiteurs[i]);
+            visit = true;
+            break;
+        }
+    }
+    if (!visit) {
+        System.out.println("No animal found with that name.");
+    }
+}
+public static void calculerTotalVisiteursZoo() {
+    int totalVisitors = 0; // si j'etablise un total et je le change apres il sera plus facile que l'inverse tbh
+    for (int i =0; i < animalCount;i++) {
+        totalVisitors += visiteurs[i]; // add each animal’s visitors to the total
+    }
+    System.out.println("Total visitors for all animals in the zoo: " + totalVisitors);
+}
+//NOT GONNA LIE apres certain point c'est just la meme affaire, fait une table, for loop pour le naviger, n'importe quel variable, change la variable a ce que je cherche
+public static void calculerPoidsMoyenAnimaux() {
+    if (animalCount == 0) {
+        System.out.println("No animals in the zoo to calculate an average weight.");
+        return;
+    }
+    double totalWeight = 0.0;
+    for (int i =0; i < animalCount;i++) {
+        totalWeight += Double.parseDouble(animauxdata[i][2]); // parse and add each weight
+    }
+    double averageWeight =totalWeight/ animalCount; // calculate average weight
+    System.out.println("Average weight of animals in the zoo: " + averageWeight + " kg");
+}
+public static void trouverAnimauxExtremes() {
+    if (animalCount == 0) {
+        System.out.println("No animals in the zoo to compare weights.");
+        return;
     }
     
+    double maxWeight = Double.MIN_VALUE;
+    double minWeight = Double.MAX_VALUE;
+    int heaviestIndex = -1;
+    int lightestIndex = -1;
 
-    public static boolean quitterProgramme() {
-        System.out.println("Exiting...");
-        return false; // returns false to stop the main loop
-    }
-
-    public static String[][] redimensionnerTableau(String[][] oldTable) {
-        String[][] newTable = new String[oldTable.length * 2][3];
-        for (int i = 0; i < oldTable.length; i++) {
-            newTable[i] = oldTable[i];
+    for (int i = 0; i < animalCount; i++) {
+        double poids = Double.parseDouble(animauxdata[i][2]); // get weigh
+        if (poids > maxWeight) {
+            maxWeight = poids;
+            heaviestIndex = i;
         }
-        return newTable;
+        if (poids < minWeight) {
+            minWeight = poids;
+            lightestIndex = i;
+        }
     }
+    // LOURD animal
+    System.out.println("animal plus lourd:");
+    System.out.println("  Name: " + animauxdata[heaviestIndex][0]);
+    System.out.println("  Species: " + animauxdata[heaviestIndex][1]);
+    System.out.println("  Weight: " + animauxdata[heaviestIndex][2] + " kg");
+    System.out.println();
+
+    // light animal
+    System.out.println("animal plus lourd:");
+    System.out.println("  Name: " + animauxdata[lightestIndex][0]);
+    System.out.println("  Species: " + animauxdata[lightestIndex][1]);
+    System.out.println("  Weight: " + animauxdata[lightestIndex][2] + " kg");
+}
+
+public static void afficherResumeCompletZoo() {
+    System.out.println("<---------------- Zoo Summary ---------------->");
+
+    System.out.println("Total Visitors:");
+    calculerTotalVisiteursZoo();
+
+    System.out.println("Animal List:");
+    afficherListeAnimaux(); 
+    
+    System.out.println("Average Weight of Animals:");
+    calculerPoidsMoyenAnimaux();
+
+    System.out.println("Heaviest and Lightest Animals:");
+    trouverAnimauxExtremes();
+
+    System.out.println("<---------------- End of Summary ---------------->");
+}
+
+public static boolean quitterProgramme() {
+    System.out.println("bye-bye!");
+    return false; // returns false to stop the main loop
+}
+public static String[][] redimensionnerTableau(String[][] oldTable) {
+    String[][] newTable = new String[oldTable.length * 2][3];
+    for (int i = 0; i < oldTable.length; i++) {
+        newTable[i] = oldTable[i];
+    }
+    return newTable;
+}
 }
