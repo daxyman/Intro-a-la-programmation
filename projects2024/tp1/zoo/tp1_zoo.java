@@ -13,6 +13,8 @@ public static void main(String[] args) {
 
     while (runCode) {
         showMenu();
+        System.out.println();
+        System.out.println("ce quoi votre choix?");
         String input1 = scanner.nextLine();
         int option = Integer.parseInt(input1);
 
