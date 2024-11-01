@@ -17,7 +17,7 @@ public static void main(String[] args) {
         System.out.println("ce quoi votre choix?");
         String input1 = scanner.nextLine();
         if (input1.isEmpty()) {
-            System.out.println("Invalid input. Please enter a number.");
+            System.out.println("Entrée non valide. Veuillez entrer un numéro.");
             continue; // Skip to the next iteration of the loop
         }
         int option = Integer.parseInt(input1);
@@ -78,6 +78,7 @@ public static void main(String[] args) {
 } 
 
     public static void ajouterNouveauAnimal(Scanner scanner) { // get scanner from main
+        separateuravecEspace();
         System.out.println("Option 1, ajouter un nouvel animal:");
         while (true) {
             if (animalCount == animauxdata.length) {
@@ -87,7 +88,7 @@ public static void main(String[] args) {
             System.out.println("C'est quoi le nom de votre nouvel animal? (ecrivez 'Stop' pour arrêter)");
             String nomAnimal = scanner.nextLine();
             if (nomAnimal.isEmpty()) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
                 continue; // Skip to the next iteration of the loop
             }
             if (nomAnimal.equals("stop")) {
@@ -97,13 +98,13 @@ public static void main(String[] args) {
             System.out.println("C'est quoi l'espèce de votre nouvel animal?");
             String especeAnimal = scanner.nextLine();
             if (especeAnimal.isEmpty()) {
-                System.out.println("Invalid input. Please enter a espece.");
+                System.out.println("Entrée non valide. Veuillez entrer une espèce.");
                 continue; // Skip to the next iteration of the loop
             }
 
             System.out.println("C'est quoi le poids de votre nouvel animal?");
             if (!scanner.hasNextDouble()) { /*condition if qui check si scanner n'a pas recu un double */ 
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
                 scanner.next(); // Discard the invalid input
                 continue;
             }
@@ -134,22 +135,32 @@ public static void main(String[] args) {
         System.out.println("3. Poids");
         /* int input2 = scanner.nextInt(); */
         String input2 = scanner.nextLine();
+        if (input2.isEmpty /* check si le contenu de rechercheranimal est vide*/ ()) {
+            System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+            return;
+        }
         int option1 = Integer.parseInt(input2);
         
+        
         while (option1 != 1 && option1 != 2 && option1 != 3) {
+            separateuravecEspace();
             System.out.println("Ceci n'est pas une entree valide, svp choisizes une option ");
-
+            input2 = scanner.nextLine();
+        if (input2.isEmpty /* check si le contenu de rechercheranimal est vide*/ ()) {
+            System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+            return;
+        }
+        option1 = Integer.parseInt(input2);
+        separateuravecEspace();
         }
         boolean found = false;
-        switch (option1
-        
-        
-        ) {
-        case 1:
+        switch (option1) {
+    case 1:
+    separateuravecEspace();
         System.out.println("Entrez le nom de l'animal:");
         String nomRecherche = scanner.nextLine();
         if (nomRecherche.isEmpty()) {
-            System.out.println("Invalid input. Please enter a espece.");
+            System.out.println("Entrée non valide. Veuillez entrer une espèce.");
             break; // Skip to the next iteration of the loop
         }
         System.out.println("Animaux avec le nom " + nomRecherche + ":");
@@ -162,8 +173,10 @@ public static void main(String[] args) {
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce nom.");
         }
+        separateuravecEspace();
         break;
     case 2:
+        separateuravecEspace();
         System.out.println("Entrez l'espèce de l'animal:");
         String especeRecherche = scanner.nextLine();
         System.out.println("Animaux de l'espèce " + especeRecherche + ":");
@@ -176,10 +189,23 @@ public static void main(String[] args) {
         if (!found) {
             System.out.println("Aucun animal trouvé de cette espèce.");
         }
+        separateuravecEspace();
         break;
     case 3:
+        separateuravecEspace();
         System.out.println("Entrez le poids de l'animal:");
-        double poidsRecherche = Double.parseDouble(scanner.nextLine());
+        String input = scanner.nextLine();
+        if (input.isEmpty()) {
+            System.out.println("Entrée non valide. Veuillez entrer une espèce.");
+            break; // Skip to the next iteration of the loop
+        }
+
+        double poidsRecherche = Double.parseDouble(input);
+        if (!scanner.hasNextDouble()) { /*condition if qui check si scanner n'a pas recu un double */ 
+                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+                scanner.next(); // Discard the invalid input
+                break;
+            }
         System.out.println("Animaux avec le poids " + poidsRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
             if (Double.parseDouble(animauxdata[i][2]) == poidsRecherche) {
@@ -190,8 +216,10 @@ public static void main(String[] args) {
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce poids.");
         }
+        separateuravecEspace();
         break;
     default:
+        separateuravecEspace();
         System.out.println("Pas une option, Bye!");
         separateuravecEspace();
         break;
@@ -199,7 +227,7 @@ public static void main(String[] args) {
 }
 public static void afficherListeAnimaux() { //shows ALL animals in animauxdata
     separateuravecEspace();
-    System.out.println("Total animals added: " + animalCount); // shows total animals added
+    System.out.println("Nombre total d'animaux ajoutés: " + animalCount); // shows total animals added
 
     for (int i = 0; i < animalCount; i++) {
         System.out.println("Animal " + (i + 1) + ":"); 
@@ -215,9 +243,11 @@ private static void afficherSingleAnimal(int index) {//shows details for A SINGL
     System.out.println("  Espèce: " + animauxdata[index][1]);
     System.out.println("  Poids: " + animauxdata[index][2]);
     System.out.println();
+    separateuravecEspace();
 }
 
 public static void modifierPoidsAnimal(Scanner scanner) {
+    separateuravecEspace();
     System.out.println("Nom de l'animal qui aura leur poids changé:");
     String nomAnimal = scanner.nextLine();
     boolean found = false;
@@ -234,8 +264,10 @@ public static void modifierPoidsAnimal(Scanner scanner) {
     if (!found) {
         System.out.println("Aucun animal avec ce nom.");
     }
+    separateuravecEspace();
 }
 public static void ajouterVisiteursParAnimal(Scanner scanner) {
+    separateuravecEspace();
     System.out.println("C'es quoi le nom de l'animal qui aura des visiteurs? :");
     String nomAnimal = scanner.nextLine();
     boolean found = false;
@@ -259,11 +291,13 @@ public static void calculerTotalVisiteursZoo() {
         totalVisitors += visiteurs[i];
     }
     System.out.println("Le total de visiteurs dans le zoo est de: " + totalVisitors);
+    separateuravecEspace();
 }
 
 //NOT GONNA LIE apres certain point c'est just la meme affaire, fait une table, for loop pour le naviger, n'importe quel variable, change la variable a ce que je cherche
 
 public static void calculerPoidsMoyenAnimaux() {
+    separateuravecEspace();
     if (animalCount == 0) {
         System.out.println("Il n'y a pas d'animaux pour calculer une moyenne.");
         return;
@@ -274,8 +308,10 @@ public static void calculerPoidsMoyenAnimaux() {
     }
     double averageWeight =totalWeight/ animalCount; // calculate average weight
     System.out.println("le poids moyen des animaux est de: " + averageWeight + " kg");
+    separateuravecEspace();
 }
 public static void trouverAnimauxExtremes() {
+    separateuravecEspace();
     if (animalCount == 0) {
         System.out.println("Il n'y a pas d'animaux.");
         return;
@@ -299,19 +335,21 @@ public static void trouverAnimauxExtremes() {
     }
     // LOURD animal
     System.out.println("animal plus lourd:");
-    System.out.println("  Name: " + animauxdata[heaviestIndex][0]);
-    System.out.println("  Species: " + animauxdata[heaviestIndex][1]);
-    System.out.println("  Weight: " + animauxdata[heaviestIndex][2] + " kg");
+    System.out.println("  Nom: " + animauxdata[heaviestIndex][0]);
+    System.out.println("  Espèce: " + animauxdata[heaviestIndex][1]);
+    System.out.println("  Poids: " + animauxdata[heaviestIndex][2] + " kg");
     System.out.println();
 
     // light animal
     System.out.println("animal plus leger:");
-    System.out.println("  Name: " + animauxdata[lightestIndex][0]);
-    System.out.println("  Species: " + animauxdata[lightestIndex][1]);
-    System.out.println("  Weight: " + animauxdata[lightestIndex][2] + " kg");
+    System.out.println("  Nom: " + animauxdata[lightestIndex][0]);
+    System.out.println("  Espèce: " + animauxdata[lightestIndex][1]);
+    System.out.println("  Poids: " + animauxdata[lightestIndex][2] + " kg");
+    separateuravecEspace();
 }
 
 public static void afficherResumeCompletZoo() {
+    separateuravecEspace();
     System.out.println("<---------------- Resume du Zoo ---------------->");
 
     System.out.println("Total de Visiteurs:");
@@ -327,9 +365,11 @@ public static void afficherResumeCompletZoo() {
     trouverAnimauxExtremes();
 
     System.out.println("<---------------- fin du resume ---------------->");
+    separateuravecEspace();
 }
 
 public static boolean quitterProgramme(Scanner scanner) {
+    separateuravecEspace();
     System.out.println("etez vous sûr(e) de vouluoir quitter le zoo?");
     System.out.println("options:");
     System.out.println("1: Non");
