@@ -20,7 +20,11 @@ public static void main(String[] args) {
             System.out.println("Entrée non valide. Veuillez entrer un numéro.");
             continue; // Skip to the next iteration of the loop
         }
+        }
+        
+        
         int option = Integer.parseInt(input1);
+
             switch (option) {
                 case 1:
                     ajouterNouveauAnimal(scanner); // si bien , utiliser une page differente pour chaque un est moins efficient, il m'aide a m'organiser
@@ -233,7 +237,8 @@ public static void afficherListeAnimaux() { //shows ALL animals in animauxdata
         System.out.println("Animal " + (i + 1) + ":"); 
         System.out.println("  Nom: " + animauxdata[i][0]);     
         System.out.println("  Espèce: " + animauxdata[i][1]);  
-        System.out.println("  Poids: " + animauxdata[i][2]);   
+        System.out.println("  Poids: " + animauxdata[i][2]);
+        System.out.println("  Visiteurs: " + visiteurs[i]);   
         System.out.println();
     }
 }
@@ -242,6 +247,7 @@ private static void afficherSingleAnimal(int index) {//shows details for A SINGL
     System.out.println("  Nom: " + animauxdata[index][0]);
     System.out.println("  Espèce: " + animauxdata[index][1]);
     System.out.println("  Poids: " + animauxdata[index][2]);
+    System.out.println("  Visiteurs: " + visiteurs[index]);
     System.out.println();
     separateuravecEspace();
 }
