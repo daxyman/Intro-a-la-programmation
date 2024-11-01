@@ -11,20 +11,22 @@ public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // what are objects dude it seems like the best solution here
         boolean runCode = true;
 
-    while (runCode) {
-        showMenu();
-        System.out.println();
-        System.out.println("ce quoi votre choix?");
-        String input1 = scanner.nextLine();
-        if (input1.isEmpty()) {
-            System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-            continue; // Skip to the next iteration of the loop
-        }
-        }
-        
-        
-        int option = Integer.parseInt(input1);
-
+        while (runCode) {
+            showMenu();
+            System.out.println();
+            System.out.println("C'est quoi votre choix?");
+            String input1 = scanner.nextLine();
+            if (input1.isEmpty()) { // Check if input is empty
+                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+                continue;
+            }
+            int option;
+            try {
+                option = Integer.parseInt(input1); // Try to parse input as an integer
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+                continue;
+            }
             switch (option) {
                 case 1:
                     ajouterNouveauAnimal(scanner); // si bien , utiliser une page differente pour chaque un est moins efficient, il m'aide a m'organiser
@@ -57,11 +59,14 @@ public static void main(String[] args) {
                     runCode = quitterProgramme(scanner);
                     break;
                 default:
+                separateuravecEspace();
                     System.out.println("Pas une option, desole!");
+                separateuravecEspace();
                     break;
+                
             }
         }
-    }
+        }
     public static void showMenu(){ //dude why using a capital M in showMenu stops it from buging?? // mf it's oct 22th, like a week after i typed this and still got NO idea// oct 25, it's because it's a method, it can't have the same name as a syntax bc java is case sensitive // oct29th i forgot what this meant lol
     separateuravecEspace();
     System.out.println("Bienvenue au zoo!");
@@ -88,7 +93,7 @@ public static void main(String[] args) {
             if (animalCount == animauxdata.length) {
                 animauxdata = redimensionnerTableau(animauxdata); // resize table if full
             }
-
+            separateuravecEspace();
             System.out.println("C'est quoi le nom de votre nouvel animal? (ecrivez 'Stop' pour arrêter)");
             String nomAnimal = scanner.nextLine();
             if (nomAnimal.isEmpty()) {
@@ -98,21 +103,21 @@ public static void main(String[] args) {
             if (nomAnimal.equals("stop")) {
                 break; // exit loop
             }
-
+            separateuravecEspace();
             System.out.println("C'est quoi l'espèce de votre nouvel animal?");
             String especeAnimal = scanner.nextLine();
             if (especeAnimal.isEmpty()) {
                 System.out.println("Entrée non valide. Veuillez entrer une espèce.");
                 continue; // Skip to the next iteration of the loop
             }
-
-            System.out.println("C'est quoi le poids de votre nouvel animal?");
+            separateuravecEspace();
+            System.out.println("C'est quoi le poids de votre nouvel animal en kg?");
             if (!scanner.hasNextDouble()) { /*condition if qui check si scanner n'a pas recu un double */ 
                 System.out.println("Entrée non valide. Veuillez entrer un numéro.");
                 scanner.next(); // Discard the invalid input
                 continue;
             }
-
+            separateuravecEspace();
             double poidsAnimal = scanner.nextDouble(); // Read input as double
             scanner.nextLine(); // Consume newline left-over
 
@@ -125,33 +130,44 @@ public static void main(String[] args) {
             animauxdata[animalCount][1] = especeAnimal;
             animauxdata[animalCount][2] = String.valueOf(poidsAnimal); // convert to string (storage)
             animalCount++;
-
+            separateuravecEspace();
             System.out.println("Animal ajouté avec succès!");
             separateuravecEspace();
         }
     }
 
-        public static void rechercherAnimal(Scanner scanner) {
+    public static void rechercherAnimal(Scanner scanner) {
         separateuravecEspace();
         System.out.println("Choisissez un des critères pour faire une recherche:");
         System.out.println("1. Nom");
         System.out.println("2. Espèce");
         System.out.println("3. Poids");
+        separateuravecEspace();
         /* int input2 = scanner.nextInt(); */
         String input2 = scanner.nextLine();
-        if (input2.isEmpty /* check si le contenu de rechercheranimal est vide*/ ()) {
+        if (input2.isEmpty()) { // Check if input is empty
             System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-            return;
+            rechercherAnimal(scanner);
         }
-        int option1 = Integer.parseInt(input2);
+        int option1;
+        try {
+            option1 = Integer.parseInt(input2); // Try to parse input as an integer
+        } catch (NumberFormatException e) {
+            System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+            rechercherAnimal(scanner);;
+        }
+        option1 = Integer.parseInt(input2);
         
         
         while (option1 != 1 && option1 != 2 && option1 != 3) {
             separateuravecEspace();
             System.out.println("Ceci n'est pas une entree valide, svp choisizes une option ");
+            separateuravecEspace();
             input2 = scanner.nextLine();
         if (input2.isEmpty /* check si le contenu de rechercheranimal est vide*/ ()) {
+            separateuravecEspace();
             System.out.println("Entrée non valide. Veuillez entrer un numéro.");
+            separateuravecEspace();
             return;
         }
         option1 = Integer.parseInt(input2);
@@ -164,8 +180,8 @@ public static void main(String[] args) {
         System.out.println("Entrez le nom de l'animal:");
         String nomRecherche = scanner.nextLine();
         if (nomRecherche.isEmpty()) {
-            System.out.println("Entrée non valide. Veuillez entrer une espèce.");
-            break; // Skip to the next iteration of the loop
+            System.out.println("Entrée non valide. Veuillez entrer un nom.");
+            rechercherAnimal(scanner);
         }
         System.out.println("Animaux avec le nom " + nomRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
@@ -176,13 +192,18 @@ public static void main(String[] args) {
         }
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce nom.");
+            rechercherAnimal(scanner);
         }
         separateuravecEspace();
-        break;
+        return;
     case 2:
         separateuravecEspace();
         System.out.println("Entrez l'espèce de l'animal:");
         String especeRecherche = scanner.nextLine();
+        if (especeRecherche.isEmpty()) {
+            System.out.println("Entrée non valide. Veuillez entrer une espèce.");
+            rechercherAnimal(scanner);
+        }
         System.out.println("Animaux de l'espèce " + especeRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
             if (animauxdata[i][1].equalsIgnoreCase(especeRecherche)) {
@@ -192,16 +213,17 @@ public static void main(String[] args) {
         }
         if (!found) {
             System.out.println("Aucun animal trouvé de cette espèce.");
+            rechercherAnimal(scanner);
         }
         separateuravecEspace();
-        break;
+        return;
     case 3:
         separateuravecEspace();
-        System.out.println("Entrez le poids de l'animal:");
+        System.out.println("Entrez le poids de l'animal en kg:");
         String input = scanner.nextLine();
         if (input.isEmpty()) {
             System.out.println("Entrée non valide. Veuillez entrer une espèce.");
-            break; // Skip to the next iteration of the loop
+            rechercherAnimal(scanner);
         }
 
         double poidsRecherche = Double.parseDouble(input);
@@ -219,6 +241,7 @@ public static void main(String[] args) {
         }
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce poids.");
+            rechercherAnimal(scanner);
         }
         separateuravecEspace();
         break;
@@ -259,7 +282,7 @@ public static void modifierPoidsAnimal(Scanner scanner) {
     boolean found = false;
     for (int i = 0; i < animalCount; i++) {
         if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // compare name
-            System.out.println("nouveau poids pour " + nomAnimal + ":");
+            System.out.println("nouveau poids pour " + nomAnimal + "kg:");
             double newPoids = Double.parseDouble(scanner.nextLine());
             animauxdata[i][2] = String.valueOf(newPoids); // update weight as string
             System.out.println("Le poids de " + nomAnimal + " a été changé");
@@ -410,5 +433,6 @@ public static void separateuravecEspace(){
     System.out.println("<-------------------------------------------------------->");
     System.out.println("");
 }
+
 
 }
