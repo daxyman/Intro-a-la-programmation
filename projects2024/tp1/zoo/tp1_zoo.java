@@ -137,6 +137,7 @@ public static void main(String[] args) {
     }
 
     public static void rechercherAnimal(Scanner scanner) {
+        while(true){
         separateuravecEspace();
         System.out.println("Choisissez un des critères pour faire une recherche:");
         System.out.println("1. Nom");
@@ -153,6 +154,7 @@ public static void main(String[] args) {
         try {
             option1 = Integer.parseInt(input2); // Try to parse input as an integer
         } catch (NumberFormatException e) {
+            separateuravecEspace();
             System.out.println("Entrée non valide. Veuillez entrer un numéro.");
             rechercherAnimal(scanner);;
         }
@@ -183,6 +185,7 @@ public static void main(String[] args) {
             System.out.println("Entrée non valide. Veuillez entrer un nom.");
             rechercherAnimal(scanner);
         }
+        separateuravecEspace();
         System.out.println("Animaux avec le nom " + nomRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
             if (animauxdata[i][0].equalsIgnoreCase(nomRecherche)) {
@@ -195,7 +198,7 @@ public static void main(String[] args) {
             rechercherAnimal(scanner);
         }
         separateuravecEspace();
-        return;
+        break;
     case 2:
         separateuravecEspace();
         System.out.println("Entrez l'espèce de l'animal:");
@@ -204,6 +207,7 @@ public static void main(String[] args) {
             System.out.println("Entrée non valide. Veuillez entrer une espèce.");
             rechercherAnimal(scanner);
         }
+        separateuravecEspace();
         System.out.println("Animaux de l'espèce " + especeRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
             if (animauxdata[i][1].equalsIgnoreCase(especeRecherche)) {
@@ -216,32 +220,32 @@ public static void main(String[] args) {
             rechercherAnimal(scanner);
         }
         separateuravecEspace();
-        return;
+        break;
     case 3:
         separateuravecEspace();
         System.out.println("Entrez le poids de l'animal en kg:");
         String input = scanner.nextLine();
         if (input.isEmpty()) {
             System.out.println("Entrée non valide. Veuillez entrer une espèce.");
-            rechercherAnimal(scanner);
-        }
-
-        double poidsRecherche = Double.parseDouble(input);
-        if (!scanner.hasNextDouble()) { /*condition if qui check si scanner n'a pas recu un double */ 
-                System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-                scanner.next(); // Discard the invalid input
                 break;
-            }
+        }
+        double poidsRecherche;
+        try {
+            poidsRecherche = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Entrée non valide. Veuillez entrer un poids numérique.");
+            break;
+        }
         System.out.println("Animaux avec le poids " + poidsRecherche + ":");
         for (int i = 0; i < animalCount; i++) {
             if (Double.parseDouble(animauxdata[i][2]) == poidsRecherche) {
                 afficherSingleAnimal(i);
                 found = true;
+                break;
             }
         }
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce poids.");
-            rechercherAnimal(scanner);
         }
         separateuravecEspace();
         break;
@@ -250,11 +254,14 @@ public static void main(String[] args) {
         System.out.println("Pas une option, Bye!");
         separateuravecEspace();
         break;
+    }
+    break;
 }
 }
 public static void afficherListeAnimaux() { //shows ALL animals in animauxdata
     separateuravecEspace();
     System.out.println("Nombre total d'animaux ajoutés: " + animalCount); // shows total animals added
+    separateuravecEspace();
 
     for (int i = 0; i < animalCount; i++) {
         System.out.println("Animal " + (i + 1) + ":"); 
@@ -282,7 +289,7 @@ public static void modifierPoidsAnimal(Scanner scanner) {
     boolean found = false;
     for (int i = 0; i < animalCount; i++) {
         if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // compare name
-            System.out.println("nouveau poids pour " + nomAnimal + "kg:");
+            System.out.println("nouveau poids pour " + nomAnimal + " en kg:");
             double newPoids = Double.parseDouble(scanner.nextLine());
             animauxdata[i][2] = String.valueOf(newPoids); // update weight as string
             System.out.println("Le poids de " + nomAnimal + " a été changé");
@@ -297,15 +304,29 @@ public static void modifierPoidsAnimal(Scanner scanner) {
 }
 public static void ajouterVisiteursParAnimal(Scanner scanner) {
     separateuravecEspace();
-    System.out.println("C'es quoi le nom de l'animal qui aura des visiteurs? :");
+    System.out.println("C'est quoi le nom de l'animal qui aura des visiteurs? :");
     String nomAnimal = scanner.nextLine();
+    if (nomAnimal.isEmpty()) {
+        System.out.println("Entrée non valide. Veuillez entrer une espèce.");
+        ajouterVisiteursParAnimal(scanner);
+        return;
+    }
     boolean found = false;
     for (int i = 0; i < animalCount; i++) {
         if (animauxdata[i][0].equalsIgnoreCase(nomAnimal)) { // search by name
             System.out.println("Combien de visiteurs voulez-vous ajouter pour " + nomAnimal + "?");
-            int newVisiteurs = Integer.parseInt(scanner.nextLine());
-            visiteurs[i] += newVisiteurs; // ++new Visiteurs to the current total
-            System.out.println("Nombre total de visiteurs pour " + nomAnimal + ": " + visiteurs[i]);
+            try {
+                int newVisiteurs = Integer.parseInt(scanner.nextLine());
+                if (newVisiteurs < 0) { // Check for negative numbers
+                    System.out.println("Le nombre de visiteurs ne peut pas être négatif. Veuillez entrer un nombre positif.");
+                    ajouterVisiteursParAnimal(scanner);
+                    return;
+                }
+                visiteurs[i] += newVisiteurs; // ++new Visiteurs to the current total
+                System.out.println("Nombre total de visiteurs pour " + nomAnimal + ": " + visiteurs[i]);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée non valide. Veuillez entrer un nombre.");
+                ajouterVisiteursParAnimal(scanner);
             found = true;
             break;
         }
@@ -314,6 +335,8 @@ public static void ajouterVisiteursParAnimal(Scanner scanner) {
         System.out.println("Aucun animal trouvé avec ce nom.");
     }
 }
+}
+
 public static void calculerTotalVisiteursZoo() {
     int totalVisitors = 0;
     for (int i = 0; i < animalCount; i++) {
