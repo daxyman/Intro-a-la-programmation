@@ -6,11 +6,6 @@ private static String[][] animauxdata = new String[20][3]; // 2D table to store 
 private static int animalCount = 0;
 private static int[] visiteurs = new int[animauxdata.length];
 public static void main(String[] args) {
-            animauxdata[0][0] = "d";
-            animauxdata[0][1] = "c";
-            animauxdata[0][2] = "1";
-            animalCount = 1;
-
         Scanner scanner = new Scanner(System.in); // what are objects dude it seems like the best solution here
         boolean runCode = true;
         int option;
