@@ -67,7 +67,7 @@ public static void main(String[] args) {
             }
         }
         }
-    public static void showMenu(){ //dude why using a capital M in showMenu stops it from buging?? // mf it's oct 22th, like a week after i typed this and still got NO idea// oct 25, it's because it's a method, it can't have the same name as a syntax bc java is case sensitive // oct29th i forgot what this meant lol
+    public static void showMenu(){
     separateuravecEspace();
     System.out.println("Bienvenue au zoo!");
     System.out.println("Que desirez vous faire?");
@@ -89,37 +89,34 @@ public static void main(String[] args) {
     public static void ajouterNouveauAnimal(Scanner scanner) { // get scanner from main
         separateuravecEspace();
         System.out.println("Option 1, ajouter un nouvel animal:");
-        while (true) {
+        boolean rep = false;
+        while (rep = true) {
             if (animalCount == animauxdata.length) {
                 animauxdata = redimensionnerTableau(animauxdata); // resize table if full
-            }
-            separateuravecEspace();
+            } separateuravecEspace();
             System.out.println("C'est quoi le nom de votre nouvel animal? (ecrivez 'Stop' pour arrêter)");
             String nomAnimal = scanner.nextLine();
             if (nomAnimal.isEmpty()) {
                 System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-                continue; // Skip to the next iteration of the loop
+                rep = false;
             }
             if (nomAnimal.equals("stop")) {
-                break; // exit loop
-            }
-            separateuravecEspace();
+                break;
+            } separateuravecEspace();
             System.out.println("C'est quoi l'espèce de votre nouvel animal?");
             String especeAnimal = scanner.nextLine();
             if (especeAnimal.isEmpty()) {
                 System.out.println("Entrée non valide. Veuillez entrer une espèce.");
-                continue; // Skip to the next iteration of the loop
-            }
-            separateuravecEspace();
+                break; // Skip to the next iteration of the loop
+            } separateuravecEspace();
             System.out.println("C'est quoi le poids de votre nouvel animal en kg?");
             if (!scanner.hasNextDouble()) { /*condition if qui check si scanner n'a pas recu un double */ 
                 System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-                scanner.next(); // Discard the invalid input
-                continue;
+                break;
             }
             separateuravecEspace();
             double poidsAnimal = scanner.nextDouble(); // Read input as double
-            scanner.nextLine(); // Consume newline left-over
+            scanner.nextLine(); // 
 
             if (poidsAnimal <= 0) { // Check if the weight is a positive number
                 System.out.println("Votre poids ne peut pas être nul ou négatif");
@@ -135,7 +132,6 @@ public static void main(String[] args) {
             separateuravecEspace();
         }
     }
-
     public static void rechercherAnimal(Scanner scanner) {
         while(true){
         separateuravecEspace();
@@ -143,6 +139,7 @@ public static void main(String[] args) {
         System.out.println("1. Nom");
         System.out.println("2. Espèce");
         System.out.println("3. Poids");
+        System.out.println("4. Sortir");
         separateuravecEspace();
         /* int input2 = scanner.nextInt(); */
         String input2 = scanner.nextLine();
@@ -156,12 +153,12 @@ public static void main(String[] args) {
         } catch (NumberFormatException e) {
             separateuravecEspace();
             System.out.println("Entrée non valide. Veuillez entrer un numéro.");
-            rechercherAnimal(scanner);;
+            rechercherAnimal(scanner);;    
         }
         option1 = Integer.parseInt(input2);
         
         
-        while (option1 != 1 && option1 != 2 && option1 != 3) {
+        while (option1 != 1 && option1 != 2 && option1 != 3 && option1 !=4) {
             separateuravecEspace();
             System.out.println("Ceci n'est pas une entree valide, svp choisizes une option ");
             separateuravecEspace();
@@ -191,11 +188,13 @@ public static void main(String[] args) {
             if (animauxdata[i][0].equalsIgnoreCase(nomRecherche)) {
                 afficherSingleAnimal(i);
                 found = true;
+                break;
             }
         }
         if (!found) {
             System.out.println("Aucun animal trouvé avec ce nom.");
             rechercherAnimal(scanner);
+            break;
         }
         separateuravecEspace();
         break;
@@ -249,6 +248,8 @@ public static void main(String[] args) {
         }
         separateuravecEspace();
         break;
+    case 4:
+        break;
     default:
         separateuravecEspace();
         System.out.println("Pas une option, Bye!");
@@ -281,7 +282,6 @@ private static void afficherSingleAnimal(int index) {//shows details for A SINGL
     System.out.println();
     separateuravecEspace();
 }
-
 public static void modifierPoidsAnimal(Scanner scanner) {
     separateuravecEspace();
     System.out.println("Nom de l'animal qui aura leur poids changé:");
@@ -336,7 +336,6 @@ public static void ajouterVisiteursParAnimal(Scanner scanner) {
     }
 }
 }
-
 public static void calculerTotalVisiteursZoo() {
     int totalVisitors = 0;
     for (int i = 0; i < animalCount; i++) {
@@ -345,9 +344,7 @@ public static void calculerTotalVisiteursZoo() {
     System.out.println("Le total de visiteurs dans le zoo est de: " + totalVisitors);
     separateuravecEspace();
 }
-
 //NOT GONNA LIE apres certain point c'est just la meme affaire, fait une table, for loop pour le naviger, n'importe quel variable, change la variable a ce que je cherche
-
 public static void calculerPoidsMoyenAnimaux() {
     separateuravecEspace();
     if (animalCount == 0) {
@@ -399,7 +396,6 @@ public static void trouverAnimauxExtremes() {
     System.out.println("  Poids: " + animauxdata[lightestIndex][2] + " kg");
     separateuravecEspace();
 }
-
 public static void afficherResumeCompletZoo() {
     separateuravecEspace();
     System.out.println("<---------------- Resume du Zoo ---------------->");
@@ -419,7 +415,6 @@ public static void afficherResumeCompletZoo() {
     System.out.println("<---------------- fin du resume ---------------->");
     separateuravecEspace();
 }
-
 public static boolean quitterProgramme(Scanner scanner) {
     separateuravecEspace();
     System.out.println("etez vous sûr(e) de vouluoir quitter le zoo?");
@@ -456,6 +451,4 @@ public static void separateuravecEspace(){
     System.out.println("<-------------------------------------------------------->");
     System.out.println("");
 }
-
-
 }
