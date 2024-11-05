@@ -10,7 +10,7 @@ package exercisesS8;
 
 import java.util.Scanner;
 
-public class exercise2 {
+public class excercise2 {
     public static void main (String[] args){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Entrez numero a somer");
