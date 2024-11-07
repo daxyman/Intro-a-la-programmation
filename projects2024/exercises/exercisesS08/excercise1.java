@@ -1,4 +1,4 @@
-package exercisesS8;
+package exercisesS08;
 /*1. Calculatrice simple
 Objectif : Créer des méthodes pour les opérations de base (addition, soustraction, multiplication, division, puissance).
 

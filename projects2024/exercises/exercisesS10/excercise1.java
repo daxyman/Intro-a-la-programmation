@@ -16,7 +16,7 @@ Sortie : "Le mot contient des voyelles."
 Entrée : "pfff"
 Sortie : "Le mot ne contient pas de voyelles."
  */
-package excercicess10;
+package exercisesS10;
 import java.util.Scanner;
 public class excercise1 {
     public static void main(String[] args){

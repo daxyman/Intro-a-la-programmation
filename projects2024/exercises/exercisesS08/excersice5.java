@@ -8,7 +8,7 @@ Entrée : 3.0
 
 Sortie : 28.27 (π * 3^2)
  */
-package exercisesS8;
+package exercisesS08;
 import java.util.Scanner;
 public class excersice5 {
     public static void main(String[] args){

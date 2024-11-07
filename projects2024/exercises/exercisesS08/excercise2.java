@@ -22,7 +22,7 @@ Objectif : Créer une méthode qui prend un entier en entrée et renvoie la somm
 //good solution i guess
 
 //
-    package exercisesS8;
+    package exercisesS08;
 
 import java.util.Scanner;
 

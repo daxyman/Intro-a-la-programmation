@@ -30,7 +30,7 @@ Entrée : Mois = 13, Jour = 10
 Sortie : "invalide" 
 */
 
-package exercicesS10;
+package exercisesS10;
 import java.util.Scanner;
 public class excercise3 {
     public static void main(String[] args){

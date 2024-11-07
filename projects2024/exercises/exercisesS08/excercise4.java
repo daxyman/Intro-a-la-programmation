@@ -8,7 +8,7 @@
 
 	 	Sortie : 15
  */
-package exercisesS8;
+package exercisesS08;
 import java.util.Scanner;
 
 public class excercise4 {

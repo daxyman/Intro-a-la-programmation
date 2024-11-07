@@ -1,4 +1,4 @@
-package exercisesS8;
+package exercisesS08;
 /*
  * 3. Nombre premier
     Objectif : Créer une méthode qui vérifie si un nombre donné est premier.

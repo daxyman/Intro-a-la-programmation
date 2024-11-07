@@ -16,7 +16,7 @@ Entrée : 2
 Sortie : "Le mois 2 a 28 jours."
 */
 
-package excercicess10;
+package exercisesS10;
 import java.util.Scanner;
 public class excercise2 {
 public static void main(String[] args){

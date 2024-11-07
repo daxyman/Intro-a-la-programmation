@@ -1,5 +1,5 @@
 // to be honest this was pretty much an overkill but i had fun messing around with the loops
-package exercisesS3;
+package exercisesS03;
 
 import java.util.Random;
 
