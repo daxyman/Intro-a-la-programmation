@@ -17,13 +17,24 @@ public class excercise4 {
         Scanner scanner = new Scanner(System.in);
         System.out.print("gimme a word bae: ");
         String word = scanner.nextLine();
+        char[] zaword = word.toCharArray();
         scanner.close();
-        word = vowelCheck(word);
+        word = vowelCheck(zaword);//loop to print word
+        System.out.println(zaword);
 
     }
-    public static String vowelCheck(String word){
-        String inverse = "hello";
-        return inverse;
+    public static String vowelCheck(char[] zaword){
+        if(Character.isLowerCase(zaword[0])){
+            zaword[0] = Character.toUpperCase(zaword[0]);
+        }
+        for (int i = 1; i < zaword.length; i++) {
+            if (Character.isUpperCase(zaword[i])) {
+                zaword[i] = Character.toLowerCase(zaword[i]);
+            } else if (Character.isLowerCase(zaword[i])) {
+                zaword[i] = Character.toUpperCase(zaword[i]);
+            }
+        }
+        return new String(zaword);
     }
     
 }
