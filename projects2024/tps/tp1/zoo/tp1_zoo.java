@@ -1,4 +1,4 @@
-package tp1.zoo;
+package tps.tp1.zoo;
 import java.util.Scanner; //bruh make 3 tables, one for weigh, one for species and one for name
 public class tp1_zoo {
 
