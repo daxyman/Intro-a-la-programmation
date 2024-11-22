@@ -9,11 +9,12 @@ Créer un jeu interactif où l'utilisateur récolte des fleurs sur un terrain mi
 1. **Génération du Terrain**
    - Représenter le terrain comme un tableau 2D.
    - Définir la taille du terrain et le nombre de mines/fleurs selon le niveau de difficulté choisi par l'utilisateur :
-     - Niveau facile : 25 cases, 6 mines, 11 fleurs.
-     - Niveau moyen : 100 cases, 25 mines, 45 fleurs.
+     - Niveau facile : 25 cases
+     - Niveau moyen : 100 cases
      - Niveau difficile : taille choisie par l'utilisateur (≥ 100 cases).
    - Positionner les mines et les fleurs aléatoirement.
    - S'assurer qu'il n'y a pas de cases nulles dans le tableau.
+   - Le terrain devra contenir 25% de mines, et 45% de fleurs, tous distribuées aléatoirement.Un niveau facile aura donc 6 mines et 11 fleurs positionnés aléatoirement sur un terrain de 25 cases.
 
 2. **Déroulement de la Partie**
    - Permettre à l'utilisateur d'entrer des coordonnées pour tenter de découvrir une case.
