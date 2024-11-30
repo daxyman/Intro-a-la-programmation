@@ -4,9 +4,7 @@ import java.util.Scanner;
 import javax.swing.plaf.TreeUI;
 
 import java.lang.Math;
-public class tp2 {
-    public static char ezboard[][] = new char[5][5]; //come to think about it, i could just make a single table and resize it
-    public static char midboard[][] = new char[10][10];
+public class tp2_copy {
     public static char possibleSolvdTabValues[] = {'B','F','~'}; //table of possible characters for solved table
     public static int tablsize = 0;
     public static void main(String[] args){
@@ -20,8 +18,8 @@ public class tp2 {
             case 2://midboard
                 fillmidboard();
                 break;
-            case 3://hardboard
-                fillhardboard(scanner);
+            case 3://board
+                fillboard(scanner);
                 break;
             default:
             System.out.println("not an option");
@@ -111,22 +109,29 @@ public class tp2 {
         System.out.println("3. Dificile");
     }
     public static void fillezboard(){
-        remplirTableauDouble(ezboard);
-        afficherTableauDouble(ezboard);
+        int hardTabLonge = 5;
+        int hardTabHaut = 5;
+        char board[][] = new char[hardTabLonge][hardTabHaut];
+        remplirTableauDouble(board);
+        afficherTableauDouble(board);
+
     }
     public static void fillmidboard(){
-        remplirTableauDouble(midboard);
-        afficherTableauDouble(midboard);
+        int hardTabLonge = 10;
+        int hardTabHaut = 10;
+        char board[][] = new char[hardTabLonge][hardTabHaut];
+        remplirTableauDouble(board);
+        afficherTableauDouble(board);
     }
-    public static void fillhardboard(Scanner scanner){
-        System.out.println("Quelle hauteur que vous voulez?");
+    public static void fillboard(Scanner scanner){
+        System.out.println("Quelle hauteur que vous voulez? (min 10)");
         int hardTabLonge = scanner.nextInt();
-        System.out.println("Quelle longeur que vous voulez?");
+        System.out.println("Quelle longeur que vous voulez? (min 10)");
         int hardTabHaut = scanner.nextInt();
-        char hardboard[][] = new char[hardTabLonge][hardTabHaut];
-        remplirTableauDouble(hardboard);
-        afficherTableauDouble(hardboard);
-        afficherTableauDouble(hardboard);
+        char board[][] = new char[hardTabLonge][hardTabHaut];
+        remplirTableauDouble(board);
+        afficherTableauDouble(board);
+        afficherTableauDouble(board);
         
     }
     
