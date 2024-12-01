@@ -1,8 +1,5 @@
 package tps.tp2;
 import java.util.Scanner;
-
-import javax.swing.plaf.TreeUI;
-
 import java.lang.Math;
 public class tp2 {
     public static char ezboard[][] = new char[5][5]; //come to think about it, i could just make a single table and resize it
@@ -11,22 +8,35 @@ public class tp2 {
     public static int tablsize = 0;
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        while (!validInput) {
         optionMenu(); //shows menu
         int diff = scanner.nextInt();
         switch (diff) {
-            case 1://ezboard
+            case 1: // Easy board
                 fillezboard();
+                char[][] solvedEzBoard = TableSolved(ezboard);
+                System.out.println("Solved Easy Board:");
+                afficherTableauDouble(solvedEzBoard);
                 break;
-            case 2://midboard
+            case 2: // Medium board
                 fillmidboard();
+                char[][] solvedMidBoard = TableSolved(midboard);
+                System.out.println("Solved Medium Board:");
+                afficherTableauDouble(solvedMidBoard);
                 break;
-            case 3://hardboard
+            case 3: // Hard board
                 fillhardboard(scanner);
+                char[][] hardboard = new char[tablsize][tablsize]; // Create custom board
+                char[][] solvedHardBoard = TableSolved(hardboard);
+                System.out.println("Solved Hard Board:");
+                afficherTableauDouble(solvedHardBoard);
                 break;
             default:
-            System.out.println("not an option");
+                System.out.println("not an option");
                 break;
         }
+    }
         scanner.close();
     }
     public static void afficherTableauDouble(char board[][]) {
@@ -38,7 +48,6 @@ public class tp2 {
             System.out.println();
         }
     }
-    
     public static char[][] remplirTableauDouble(char[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -47,26 +56,28 @@ public class tp2 {
         }
         return board;
     }
-    public static char[][] TableSolved(char[][] board) { 
-        char[][] solvedBoard = new char[board.length][board[0].length];
-        boolean validTable = false;
-    
-        while (!validTable) {
-            // Fill the board with random choices
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    solvedBoard[i][j] = randomChoice();
-                }
+
+
+public static char[][] TableSolved(char[][] board) { 
+    char[][] solvedBoard = new char[board.length][board[0].length];
+        // Fill board and count occurrences
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) { // Correct loop increment
+                char choice = randomChoice();
+                solvedBoard[i][j] = choice; // Correct assignment
             }
-            // Check if the generated table meets the expected proportions
-            validTable = variableVerification(solvedBoard);
         }
-        return solvedBoard; // Return the valid table
-    }
-    public static char randomChoice() { //make a random.math choice, it must be 25% Bombs(B), 45% flowers(F) and 30% empty(~).
+
+    return solvedBoard;
+}
+
+
+    public static char randomChoice() { //make a random.math choice, it approximates to be 25% Bombs(B), 45% flowers(F) and 30% empty(~).
         // Generate a random number between 1 and 100
         int rand = (int)(Math.random() * 100) + 1;
-        // Map random numbers to probabilities
+        /*I find this to be the best way, others would loop infitly if the number was
+        not able to be divided in the percentages, and asked for a margin, this doesnt provide the required
+        percentages 100% of the time but it comes close the most times*/
         if (rand <= 45) {
             return 'F'; // 45% chance
         } else if (rand <= 70) {
@@ -74,34 +85,6 @@ public class tp2 {
         } else {
             return '~'; // 30% chance
         }
-    }
-    public static boolean variableVerification(char[][] solvedBoard) {
-        boolean validContents = true;
-        double emptyCount = 0, bCount = 0, fCount = 0;
-        int totalCells = solvedBoard.length * solvedBoard[0].length;
-    
-        for (int i = 0; i < solvedBoard.length; i++) {
-            for (int j = 0; j < solvedBoard[i].length; j++) {
-                switch (solvedBoard[i][j]) {
-                    case 'F': fCount++; break;
-                    case 'B': bCount++; break;
-                    case '~': emptyCount++; break;
-                }
-            }
-        }
-    
-        double flowerExpected = 45 / 100.0 * totalCells;
-        double bombExpected = 25 / 100.0 * totalCells;
-        double emptyExpected = 30 / 100.0 * totalCells;
-    
-        double tolerance = 0.1 * totalCells; // Allowable deviation (10%)
-        if (Math.abs(fCount - flowerExpected) > tolerance ||
-            Math.abs(bCount - bombExpected) > tolerance ||
-            Math.abs(emptyCount - emptyExpected) > tolerance) {
-            validContents = false;
-        }
-    
-        return validContents;
     }
     public static void optionMenu(){
         System.out.println("Bienvue aux Jeu des mines fleuries!");
@@ -126,8 +109,9 @@ public class tp2 {
         char hardboard[][] = new char[hardTabLonge][hardTabHaut];
         remplirTableauDouble(hardboard);
         afficherTableauDouble(hardboard);
-        afficherTableauDouble(hardboard);
-        
+        afficherTableauDouble(hardboard);   
     }
-    
+    public static void playGame(){
+
+    }
 }
