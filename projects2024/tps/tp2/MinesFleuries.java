@@ -7,160 +7,123 @@ public class MinesFleuries {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int difficulty = getDifficulty(scanner);
-        char[][] board = generateBoard(difficulty, scanner);
-        playGame(board, scanner);
-        scanner.close();
-    }
-
-    public static int getDifficulty(Scanner scanner) {
-        System.out.println("Bienvenue au Jeu des Mines Fleuries !");
+        System.out.println("Bienvenue au jeu des Mines Fleuries !");
+        
+        // Choix de la difficulté
         System.out.println("Choisissez un niveau de difficulté :");
-        System.out.println("1. Facile (5x5)");
-        System.out.println("2. Moyen (10x10)");
-        System.out.println("3. Difficile (taille personnalisée)");
-        int difficulty = scanner.nextInt();
-        return (difficulty >= 1 && difficulty <= 3) ? difficulty : getDifficulty(scanner);
-    }
-
-    public static char[][] generateBoard(int difficulty, Scanner scanner) {
-        int size = 0;
-        if (difficulty == 1) size = 5;
-        if (difficulty == 2) size = 10;
-        if (difficulty == 3) {
-            System.out.println("Entrez la taille du tableau (≥ 10) :");
-            size = scanner.nextInt();
-            size = Math.max(size, 10); // Taille minimale de 10
-        }
-
-        int totalCells = size * size;
-        int mines = (int) (totalCells * 0.25); // 25% mines
-        int flowers = (int) (totalCells * 0.45); // 45% flowers
-
-        char[][] board = new char[size][size];
-        fillBoard(board, mines, flowers);
-        return board;
-    }
-
-    public static void fillBoard(char[][] board, int mines, int flowers) {
-        int size = board.length;
-        Random random = new Random();
-
-        // Initialize the board with empty spaces
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = '~'; // Empty by default
+        System.out.println("1 - Facile (25 cases)");
+        System.out.println("2 - Moyen (100 cases)");
+        System.out.println("3 - Difficile (taille personnalisée)");
+        int niveau = scanner.nextInt();
+        
+        int rows, cols;
+        switch (niveau) {
+            case 1 -> { rows = 5; cols = 5; }
+            case 2 -> { rows = 10; cols = 10; }
+            case 3 -> {
+                System.out.println("Entrez le nombre de lignes :");
+                rows = scanner.nextInt();
+                System.out.println("Entrez le nombre de colonnes :");
+                cols = scanner.nextInt();
+                if (rows * cols < 100) {
+                    System.out.println("La taille minimale est de 100 cases. Réessayez.");
+                    return;
+                }
+            }
+            default -> {
+                System.out.println("Choix invalide. Réessayez.");
+                return;
             }
         }
 
-        // Place mines randomly
-        int placedMines = 0;
-        while (placedMines < mines) {
-            int x = random.nextInt(size);
-            int y = random.nextInt(size);
-            if (board[x][y] == '~') {
-                board[x][y] = 'B'; // Mine
-                placedMines++;
-            }
-        }
+        char[][] terrain = new char[rows][cols];
+        initialiserTerrain(terrain);
+        
+        int totalCases = rows * cols;
+        int mines = (int) (totalCases * 0.25);
+        int fleurs = (int) (totalCases * 0.45);
+        placerElements(terrain, mines, fleurs);
+        
+        int fleursRestantes = fleurs;
+        int coupsJoues = 0;
+        boolean partieTerminee = false;
 
-        // Place flowers randomly
-        int placedFlowers = 0;
-        while (placedFlowers < flowers) {
-            int x = random.nextInt(size);
-            int y = random.nextInt(size);
-            if (board[x][y] == '~') {
-                board[x][y] = 'F'; // Flower
-                placedFlowers++;
-            }
-        }
-    }
+        while (!partieTerminee && fleursRestantes > 0) {
+            afficherTerrain(terrain, false);
+            System.out.println("Entrez les coordonnées (ligne colonne) :");
+            int x = scanner.nextInt() - 1;
+            int y = scanner.nextInt() - 1;
 
-    public static void playGame(char[][] board, Scanner scanner) {
-        int size = board.length;
-        boolean[][] discovered = new boolean[size][size];
-        int moves = 0, flowersCollected = 0;
-        boolean gameOver = false;
-
-        while (!gameOver) {
-            displayBoard(board, discovered, false);
-            int[] coords = getValidCoordinates(scanner, size);
-            int x = coords[0];
-            int y = coords[1];
-
-            if (discovered[x][y]) {
-                System.out.println("Case déjà découverte !");
+            if (x < 0 || x >= rows || y < 0 || y >= cols) {
+                System.out.println("Coordonnées invalides. Réessayez.");
                 continue;
             }
 
-            discovered[x][y] = true;
-            char cell = board[x][y];
-            moves++;
-
-            if (cell == 'B') {
-                System.out.println("Oh non 😞 Vous êtes tombé sur une mine !");
-                gameOver = true;
-            } else if (cell == 'F') {
-                System.out.println("Youpi !!! Vous avez trouvé une fleur !");
-                flowersCollected++;
-            } else {
-                System.out.println("Fiouuu... Rien ici.");
+            switch (terrain[x][y]) {
+                case '✿' -> {
+                    System.out.println("Youpi !!! Vous avez trouvé une fleur !");
+                    terrain[x][y] = '~'; // Fleur récoltée
+                    fleursRestantes--;
+                }
+                case 'M' -> {
+                    System.out.println("Oh non 😞 Vous avez trouvé une mine !");
+                    partieTerminee = true;
+                }
+                case 'X' -> System.out.println("Fiouuu... Case vide.");
+                default -> System.out.println("Case déjà découverte !");
             }
-
-            // Check if player has collected all flowers
-            if (flowersCollected == countFlowers(board)) {
-                System.out.println("Félicitations ! Vous avez récolté toutes les fleurs !");
-                gameOver = true;
-            }
+            coupsJoues++;
         }
 
-        displayBoard(board, discovered, true);
-        displayStatistics(moves, flowersCollected);
-    }
-
-    public static int[] getValidCoordinates(Scanner scanner, int size) {
-        System.out.println("Entrez les coordonnées (x y) :");
-        try {
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
-            if (x >= 0 && x < size && y >= 0 && y < size) {
-                return new int[]{x, y};
-            }
-        } catch (Exception e) {
-            scanner.nextLine(); // Clear input buffer
+        if (partieTerminee) {
+            System.out.println("Partie terminée. Vous avez perdu !");
+        } else {
+            System.out.println("Félicitations ! Vous avez récolté toutes les fleurs !");
         }
-        System.out.println("Entrée invalide. Essayez encore.");
-        return getValidCoordinates(scanner, size);
+
+        System.out.println("Statistiques :");
+        System.out.println("Nombre de coups joués : " + coupsJoues);
+        System.out.println("Nombre de fleurs récoltées : " + (fleurs - fleursRestantes));
+        afficherTerrain(terrain, true);
     }
 
-    public static void displayBoard(char[][] board, boolean[][] discovered, boolean reveal) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (reveal || discovered[i][j]) {
-                    if (board[i][j] == 'F') System.out.print("✿ ");
-                    else if (board[i][j] == '~') System.out.print("~ ");
-                    else System.out.print("B ");
+    public static void initialiserTerrain(char[][] terrain) {
+        for (int i = 0; i < terrain.length; i++) {
+            for (int j = 0; j < terrain[i].length; j++) {
+                terrain[i][j] = 'X'; // Toutes les cases sont initialement non découvertes
+            }
+        }
+    }
+
+    public static void placerElements(char[][] terrain, int mines, int fleurs) {
+        Random random = new Random();
+        placerElement(terrain, mines, 'M'); // Placer les mines
+        placerElement(terrain, fleurs, '✿'); // Placer les fleurs
+    }
+
+    public static void placerElement(char[][] terrain, int count, char element) {
+        Random random = new Random();
+        int placed = 0;
+        while (placed < count) {
+            int x = random.nextInt(terrain.length);
+            int y = random.nextInt(terrain[0].length);
+            if (terrain[x][y] == 'X') { // Place uniquement sur une case non découverte
+                terrain[x][y] = element;
+                placed++;
+            }
+        }
+    }
+
+    public static void afficherTerrain(char[][] terrain, boolean reveler) {
+        for (int i = 0; i < terrain.length; i++) {
+            for (int j = 0; j < terrain[i].length; j++) {
+                if (!reveler && (terrain[i][j] == 'M' || terrain[i][j] == '✿')) {
+                    System.out.print("X "); // Ne pas révéler mines et fleurs pendant la partie
                 } else {
-                    System.out.print("X ");
+                    System.out.print(terrain[i][j] + " ");
                 }
             }
             System.out.println();
         }
-    }
-
-    public static int countFlowers(char[][] board) {
-        int count = 0;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == 'F') count++;
-            }
-        }
-        return count;
-    }
-
-    public static void displayStatistics(int moves, int flowersCollected) {
-        System.out.println("Statistiques de la partie :");
-        System.out.println("Nombre de coups joués : " + moves);
-        System.out.println("Nombre de fleurs récoltées : " + flowersCollected);
     }
 }
