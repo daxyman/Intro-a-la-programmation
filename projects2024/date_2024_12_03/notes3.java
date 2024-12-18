@@ -1,7 +1,7 @@
 package date_2024_12_03;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class notes3 {
 public static void main(String[] args){
@@ -23,7 +23,7 @@ System.out.println("Une erreur est survenue lors de la création du fichier.");
 e.printStackTrace();
 }
 }
-            
+// ecrire dans un fichier sans ecraser pg7 IMPORTANT
 }
 public static void ecrireFichier(String nomFichier) {
     try {// création (ou ouverture) du fichier
