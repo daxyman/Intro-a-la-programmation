@@ -1,5 +1,6 @@
 package finalExamPrep;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class finalExam {
     public static void main (String[] args){
@@ -17,7 +18,6 @@ public class finalExam {
         while(true){
             Scanner scanner = new Scanner(System.in);
             subjects(scanner);
-
         }
     }
     public static void subjects(Scanner scanner) {
@@ -25,11 +25,17 @@ public class finalExam {
         System.out.println("1: String Builder");
         System.out.println("2: java file");
         System.out.println("choose one!");
-        int choice = scanner.nextInt();
+        int choice = -1;
+        try{
+        choice = scanner.nextInt();}
+        catch(InputMismatchException e){
+            System.err.println("Dumbass tryna enter a letter lmao");
+            scanner.nextLine();
+            subjects(scanner);
+        }
         picker(choice);
     }
     public static void picker (int choice){
-        try{
         switch(choice){
         /* vsc proposed this
          * case 1 -> howStringBuilderWorks();
@@ -40,15 +46,11 @@ public class finalExam {
             howStringBuilderWorks();
             break;
             case 2:
-            System.out.println(howjavaFileWorks());
+            howjavaFileWorks();
             break;
         }
     }
-    catch(Exception e){
-        System.out.println("dumbass");
-        picker(choice);
-    }
-    }
+    
     public static void howStringBuilderWorks(){
         System.out.println("\nStringBuilder in Java represents a mutable sequence of characters.\n\nBut what even is a \"mutable sequence of characters\" you migth ask? \n\n it is actually very simple, a mutable sequence of characters allows you to modify the sequence of characters without creating a new object to make a change\n");
         
@@ -74,9 +76,8 @@ public class finalExam {
         System.out.println("StringBuilder reference is now changed " + name + "\n");
         System.err.println("When you modify a StringBuilder (e.g., using .append(), .insert(), .delete(), etc.), the changes happen directly to the same StringBuilder object. No new object is created. This is what makes StringBuilder a mutable sequence of characters.");
     }
-    public static String howjavaFileWorks(){
+    public static void howjavaFileWorks(){
         String descriptionjavFile = "d";
-        return(descriptionjavFile);
     }
     
 }
