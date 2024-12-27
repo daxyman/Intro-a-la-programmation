@@ -1,4 +1,0 @@
-Bojour, ceci est un exemple d'ecriture dans un fichier.
-Texte supplémentaire ajouté au fichier
-
-ecrire dans un fichier sans ecraser pg7 IMPORTANT
